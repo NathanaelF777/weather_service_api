@@ -1,0 +1,19 @@
+{
+  "name": "weather_service_api",
+  "version": "1.0.0",
+  "description": "Weather forecast service using the National Weather Service API",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node index.ts"
+  },
+  "dependencies": {
+    "axios": "^1.7.0",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^24.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.0"
+  }
+}
