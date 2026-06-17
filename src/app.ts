@@ -27,17 +27,17 @@ app.get('/forecast', async (req: express.Request, res: express.Response) => {
       characterization: characterizeTemperature(current.temperature),
     };
 
+    // TODO: Add retry logic
+
     res.json(forecastData);
   } catch (err) {
-    // Unusable upstream payloads surface as UpstreamError; axios rejects
-    // non-2xx responses, which also land here.
     if (err instanceof UpstreamError) {
       return res.status(502).json({ error: err.message });
     }
     if (axios.isAxiosError(err) && err.response) {
       if (err.response.status === 404) {
         return res.status(404).json({
-          error: 'No forecast available for these coordinates (the NWS API only covers the United States).',
+          error: 'No forecast available for these coordinates',
         });
       }
       return res.status(502).json({ error: 'Upstream weather service error.' });
@@ -46,3 +46,8 @@ app.get('/forecast', async (req: express.Request, res: express.Response) => {
     res.status(500).json({ error: 'Something went wrong' });
   }
 });
+
+// TODO: Expand functionality to include more forecast periods.
+// TODO: Add caching for grid locations.
+// TODO: Add option to convert temp units to celsius
+// TODO: Add support for retrieving weather icon for potential frontend support.
