@@ -14,7 +14,11 @@ characterization of the temperature. Data comes from the
 
 ```bash
 npm install
-npm start          # starts on http://localhost:3000
+npm run start        # starts on http://localhost:3000, will build automatically
+```
+Running without building can be done by running
+```bash
+npm run dev
 ```
 
 Example:
@@ -98,7 +102,7 @@ tests/
 ## Tests
 
 ```bash
-npm test          # runs the suite
+npm run test          # runs the suite
 npm run typecheck # type-checks without emitting
 ```
 
@@ -106,18 +110,3 @@ Tests use Node's built-in `node:test` runner and `node:assert` (no test
 framework dependency), run through `ts-node`. HTTP calls are stubbed with the
 runner's built-in `mock`, so the suite is fast and never touches the network.
 
-## Shortcuts & trade-offs
-
-This is a focused exercise, not a production service. Conscious omissions:
-
-- **Generic `User-Agent`.** NWS recommends a descriptive agent identifying the
-  app and a contact; this sends `weather-app`. (See the `TODO` in `nws.ts`.)
-- **Fahrenheit only.** NWS returns °F by default; Celsius handling isn't
-  implemented (`TODO` in `temp.ts`).
-- **No caching / retries / timeouts** on the upstream call. A production client
-  would add a request timeout and bounded retries for transient failures, and
-  could cache forecasts (they change slowly).
-- **"Today" = the first period.** Matches NWS's model, but in the evening that
-  period is "Tonight"/"Overnight" rather than a daytime forecast.
-- **Minimal observability** — errors are logged to the console; no structured
-  logging or metrics.

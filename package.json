@@ -4,7 +4,10 @@
   "description": "Weather forecast service using the National Weather Service API",
   "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "prestart": "tsc",
+    "start": "node dist/index.js",
+    "dev": "node --watch --require ts-node/register src/index.ts",
+    "build": "tsc",
     "test": "node --require ts-node/register --test \"tests/**/*.test.ts\"",
     "typecheck": "tsc --noEmit"
   },
